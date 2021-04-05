@@ -12,24 +12,24 @@ const steps = [
 ];
 
 const defaultData = {
-    firstName: "Monika", 
-    name: "Strzelec", 
-    numberPhone: "793 652 269", 
-    email: "monika.strzelec@outlook.com", 
-    PESEL: "90032714442", 
-    brithDate: "27.03.1990", 
-    IDcard: "dowód osobisty", 
-    numbrID: "AG5549555"
+    firstName: "", 
+    name: "", 
+    numberPhone: "", 
+    email: "", 
+    PESEL: "", 
+    brithDate: "", 
+    IDcard: "", 
+    numbrID: ""
 };
 
-const MultiStep = ({ images }) => {
+const MultiStep = () => {
 
   const [formData, setForm] = useForm(defaultData);
   const { step, navigation } = useStep({ initialStep: 0, steps });
   const { id } = step;
   const startTime = new Date().getTime();
 
-  const props = { formData, setForm, navigation,startTime };
+  const props = { formData, setForm, navigation, startTime };
 
   switch (id) {
     case "step1":

@@ -14,17 +14,14 @@ const Step2 = ({ setForm, formData, navigation }) => {
   const { PESEL, brithDate, IDcard, numbrID } = formData;
   const [value, setValue] = useState(false); //pod wybór dowód/paszport
   const { previous, next } = navigation;
-  const [valuePESEL, setValuePESEL] = useState(false); //pod spr PESEL
+
   const { register, handleSubmit } = useForm();
+  const handleOnSubmit = (data) => console.log(data);
+  const [birthDate, setBirthDate] = useState("");
 
-  const tmpPesel = React.createRef();
-
-  function DateWithPesel() {
-    let pesel = tmpPesel.current;
-
-    console.log("tmp presel ==== " + JSON.stringify(pesel));
+  const DateWithPesel = (pesel) => {
     let year = parseInt(pesel.substring(0, 2), 10);
-    let month = parseInt(pesel.substring(2, 4), 10) - 1;
+    let month = parseInt(pesel.substring(2, 4), 10);
     let day = parseInt(pesel.substring(4, 6), 10);
 
     if (month > 80) {
@@ -42,22 +39,34 @@ const Step2 = ({ setForm, formData, navigation }) => {
     } else {
       year += 1900;
     }
-    let BirthDate = new Date();
-    BirthDate.setFullYear(day, month, year);
-
-    let weight = [9, 7, 3, 1, 9, 7, 3, 1, 9, 7];
-    let sum = 0;
-    for (let i = 0; i < weight.length; i++) {
-      sum += parseInt(pesel.substring(i, i + 1), 10) * weight[i];
+    month = month.toString();
+    if (month.length < 2) {
+      month = "0" + month;
     }
-    sum = sum % 10;
-    let Valid = sum === parseInt(pesel.substring(10, 11), 10);
 
-    return { date: BirthDate, valid: Valid };
-  }
+    let BirthDate = `${day}-${month}-${year}`;
+    setBirthDate(BirthDate);
+  };
+
+  const handleBirthDate = (e) => {
+    const pesel = e.target.value;
+
+    const regex = /^[0-9]{11}$/;
+
+    if (!regex.test(pesel)) setBirthDate("");
+    else {
+      if (parseInt(pesel.substring(4, 6)) < 31) {
+        if (parseInt(pesel.substring(2, 3)) % 2 === 0) {
+          DateWithPesel(pesel);
+        } else if (parseInt(pesel.substring(3, 4)) <= 2) {
+          DateWithPesel(pesel);
+        }
+      }
+    }
+  };
 
   return (
-    <form>
+    <form onSubmit={(e) => handleSubmit(e, birthDate)}>
       <Grid
         container
         spacing={3}
@@ -76,16 +85,18 @@ const Step2 = ({ setForm, formData, navigation }) => {
             <input
               type="text"
               placeholder="PESEL"
-              value={PESEL}
               {...PESELvalidation}
               ref={register(DateWithPesel)}
-              onChange={setForm}
+              onChange={(e) => {
+                setForm(e);
+                handleBirthDate(e);
+              }}
             />
           </div>
           <br></br>
           <div>
             <label> Data urodzenia:</label>
-            <label> {valuePESEL ? "Niepoprawny PESEL" : brithDate}</label>
+            <input type="text" name="birthDate" value={birthDate} disabled />
           </div>
           <br></br>
           <div>
