@@ -12,10 +12,10 @@ const steps = [
 ];
 
 const defaultData = {
-    firstName: "", 
-    name: "", 
-    numberPhone: "", 
-    email: "", 
+    firstName: "Monika", 
+    name: "Strzelec", 
+    numberPhone: "793 652 269", 
+    email: "monikaagata1990@wp.pl", 
     PESEL: "", 
     brithDate: "", 
     IDcard: "", 

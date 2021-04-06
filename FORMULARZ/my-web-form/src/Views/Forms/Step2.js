@@ -15,7 +15,7 @@ const Step2 = ({ setForm, formData, navigation }) => {
   const [value, setValue] = useState(false); //pod wybór dowód/paszport
   const { previous, next } = navigation;
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, errors } = useForm();
   const handleOnSubmit = (data) => console.log(data);
   const [birthDate, setBirthDate] = useState("");
 
@@ -65,8 +65,9 @@ const Step2 = ({ setForm, formData, navigation }) => {
     }
   };
 
+
   return (
-    <form onSubmit={(e) => handleSubmit(e, birthDate)}>
+    <form onSubmit={(e) => handleSubmit( birthDate, handleOnSubmit)}>
       <Grid
         container
         spacing={3}
@@ -88,8 +89,8 @@ const Step2 = ({ setForm, formData, navigation }) => {
               {...PESELvalidation}
               ref={register(DateWithPesel)}
               onChange={(e) => {
-                setForm(e);
                 handleBirthDate(e);
+                setForm(e);
               }}
             />
           </div>
@@ -101,9 +102,11 @@ const Step2 = ({ setForm, formData, navigation }) => {
           <br></br>
           <div>
             <label> Typ dokumentu tożsamości: </label>
-            <select name="choiseID" onChange={() => setValue(!value)}>
-              <option>Dowód osobisty</option>
-              <option>Paszport</option>
+            <select 
+              name="IDcard" 
+              onChange={(e) => {setValue(!value); setForm(e);}} >
+              <option value="dowód">Dowód osobisty</option>
+              <option value="paszport">Paszport</option>
             </select>
           </div>
           <br></br>

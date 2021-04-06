@@ -20,7 +20,7 @@ const Footer = () => {
   const [timer, setTimer] = useState(300);
 
 useEffect(() => {
-    setInterval(timerTime, 1000); //trzeba to jakoś przerwać,,, bo useEffect tylko raz jest wywo
+    setInterval(timerTime, 1000);
   }, []);
 
   const padTime = time => {

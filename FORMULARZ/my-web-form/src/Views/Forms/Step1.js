@@ -30,7 +30,7 @@ const Step1 = ({ setForm, formData, navigation, startTime }) => {
   const { firstName, name, numberPhone, email } = formData;
   const { next } = navigation;
 
-  const { register, handleSubmit} = useForm()
+  const { register, handleSubmit, errors} = useForm()
   const handleOnSubmit = data => console.log(data);
 
   return (
