@@ -3,7 +3,7 @@ import { Grid, Typography } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 
 const PESELvalidation = {
-  max: 11,
+  max: 12,
 };
 
 const numberIDvalidation = {
@@ -12,7 +12,7 @@ const numberIDvalidation = {
 
 const Step2 = ({ setForm, formData, navigation }) => {
   const { PESEL, brithDate, IDcard, numbrID } = formData;
-  const [value, setValue] = useState(false); //pod wybór dowód/paszport
+  const [value, setValue] = useState(false);
   const { previous, next } = navigation;
 
   const { register, handleSubmit, errors } = useForm();
@@ -65,9 +65,8 @@ const Step2 = ({ setForm, formData, navigation }) => {
     }
   };
 
-
   return (
-    <form onSubmit={(e) => handleSubmit( birthDate, handleOnSubmit)}>
+    <form onSubmit={(e) => handleSubmit(e, birthDate, handleOnSubmit)}>
       <Grid
         container
         spacing={3}
@@ -82,29 +81,46 @@ const Step2 = ({ setForm, formData, navigation }) => {
 
         <div className="Step2">
           <div>
-            <label> PESEL: </label>
+            <label>
+              {" "}
+              PESEL:
+              <input
+                type="text"
+                placeholder="wpisz PESEL"
+                name="PESEL"
+                {...PESELvalidation}
+                ref={PESELvalidation}
+                onChange={(e) => {
+                  setForm(e);
+                  handleBirthDate(e);
+                }}
+              />
+            </label>
+          </div>
+          <br></br>
+          <div>
+            <label> Data urodzenia:</label>
             <input
               type="text"
-              placeholder="PESEL"
-              {...PESELvalidation}
-              ref={register(DateWithPesel)}
+              name="birthDate"
+              value={birthDate}
+              //onChange={setForm}
               onChange={(e) => {
-                handleBirthDate(e);
                 setForm(e);
+                setBirthDate(birthDate);
               }}
             />
           </div>
           <br></br>
           <div>
-            <label> Data urodzenia:</label>
-            <input type="text" name="birthDate" value={birthDate} disabled />
-          </div>
-          <br></br>
-          <div>
             <label> Typ dokumentu tożsamości: </label>
-            <select 
-              name="IDcard" 
-              onChange={(e) => {setValue(!value); setForm(e);}} >
+            <select
+              name="IDcard"
+              onChange={(e) => {
+                setValue(!value);
+                setForm(e);
+              }}
+            >
               <option value="dowód">Dowód osobisty</option>
               <option value="paszport">Paszport</option>
             </select>

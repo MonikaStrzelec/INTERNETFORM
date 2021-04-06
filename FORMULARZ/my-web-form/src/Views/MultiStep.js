@@ -31,6 +31,7 @@ const MultiStep = () => {
 
   const props = { formData, setForm, navigation, startTime };
 
+
   switch (id) {
     case "step1":
       return <Step1 {...props} />;
@@ -41,6 +42,7 @@ const MultiStep = () => {
     default:
       return null;
   }
+
 };
 
 export default MultiStep;

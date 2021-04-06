@@ -46,7 +46,7 @@ const Step3 = ({ setForm, formData, navigation, props, startTime }) => {
             PESEL: {`${PESEL}`},
             <br />
             <br></br>
-            Data urodzin: {` ${brithDate}`},
+            Data urodzin: {`${brithDate}`},
             <br />
             <br></br>
             Typ dokumentu torżsamości to: {`${IDcard}`},
