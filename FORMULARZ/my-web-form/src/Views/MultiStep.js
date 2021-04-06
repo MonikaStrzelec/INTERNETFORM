@@ -18,7 +18,7 @@ const defaultData = {
     email: "monikaagata1990@wp.pl", 
     PESEL: "", 
     brithDate: "", 
-    IDcard: "", 
+    IDcard: "dowód osobity", 
     numbrID: ""
 };
 
