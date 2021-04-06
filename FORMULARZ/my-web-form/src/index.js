@@ -11,12 +11,12 @@ import { ThemeProvider } from "@material-ui/styles";
 function App() {
   return (
     //<div className="app">
-    <ThemeProvider theme={theme}>
-      <div style={{ flexGrow: 1 }}>
+    <ThemeProvider theme={theme} >
+      <div style={{ flexGrow: 1 }} className="App">
         <Header />
-        <Container>
+        <Container className="Wrapper">
           <Box mt={7} mb={12}>
-            <div className="wrapper">
+            <div className="Form">
               <MultiStep />
             </div>
           </Box>

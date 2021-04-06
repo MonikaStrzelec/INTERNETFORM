@@ -32,6 +32,8 @@ const Step1 = ({ setForm, formData, navigation, startTime }) => {
 
   const { register, handleSubmit, errors} = useForm()
   const handleOnSubmit = data => console.log(data);
+  console.log("rerender");
+  console.log(errors);
 
   return (
     <form onSubmit={handleSubmit(handleOnSubmit)}>
@@ -56,6 +58,8 @@ const Step1 = ({ setForm, formData, navigation, startTime }) => {
             {...firstNameValidation}
             ref={register(firstNameValidation)} 
             onChange={setForm}/>
+            {errors.firstName?.type === "required" && <span>Imię jest wymagane</span>}
+            {errors.firstName?.type === "maxLength" && <span>Imię może mieć max 50 znaków</span>}
             </label>
           </div>
           <br></br>
